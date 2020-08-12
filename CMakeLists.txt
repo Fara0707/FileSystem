@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.14)
+project(FileSystem)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(FileSystem main.cpp fileSystem.h fileSystem.cpp)

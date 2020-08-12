@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Kolia/CLionProjects/FileSystem/fileSystem.h
+cstdio
+-
+cstring
+-
+string
+-
+vector
+-
+
+C:/Users/Kolia/CLionProjects/FileSystem/main.cpp
+iostream
+-
+cstdlib
+-
+fstream
+-
+cmath
+-
+fileSystem.h
+C:/Users/Kolia/CLionProjects/FileSystem/fileSystem.h
+
