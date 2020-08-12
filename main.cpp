@@ -27,20 +27,20 @@ SuperBlock createSb(int size, int count) {
     return block;
 }
 
-void writeSB(SuperBlock &block, FILE* name) {
+void writeSB(SuperBlock &block, FILE *name) {
     fseek(name, 0, SEEK_SET);
-    char *data = (char *)calloc(1, block.blockSize);
+    char *data = (char *) calloc(1, block.blockSize);
     memcpy(data, &block, sizeof(SuperBlock));
     fwrite(data, block.blockSize, 1, name);
     free(data);
 }
 
-void writeBMID(SuperBlock &block, FILE* name) {
+void writeBMID(SuperBlock &block, FILE *name) {
     block.inodeMapOffset = ftell(name) / block.blockSize;
     int inodeMapBlocksCount = block.inodeCount % block.blockSize == 0 ?
                               block.inodeCount / block.blockSize : block.inodeCount / block.blockSize + 1;
 
-    char *data = (char *)calloc(1, block.blockSize);
+    char *data = (char *) calloc(1, block.blockSize);
     for (int i = 0; i < inodeMapBlocksCount; ++i) {
         fwrite(data, block.blockSize, 1, name);
     }
@@ -51,7 +51,7 @@ void writeMID(SuperBlock &block, FILE *name) {
 
     block.inodeTableOffset = ftell(name) / block.blockSize;
 
-    char *data = (char *)calloc(1, block.blockSize);
+    char *data = (char *) calloc(1, block.blockSize);
     for (int i = 0; i < block.inodeCount; ++i) {
         fwrite(data, block.blockSize, 1, name);
     }
@@ -66,7 +66,7 @@ void writeBMBD(SuperBlock &block, FILE *name) {
     int dataMapBlocksCount = block.dataBlocksCount % block.blockSize == 0 ?
                              block.dataBlocksCount / block.blockSize : block.dataBlocksCount / block.blockSize + 1;
 
-    char *dataBlock = (char *)calloc(1, block.blockSize);
+    char *dataBlock = (char *) calloc(1, block.blockSize);
     for (int i = 0; i < dataMapBlocksCount; ++i) {
         fwrite(dataBlock, block.blockSize, 1, name);
     }
@@ -77,7 +77,7 @@ void writeBMBD(SuperBlock &block, FILE *name) {
 void writeMBD(SuperBlock &block, FILE *name) {
     block.dataBlocksTableOffset = ftell(name) / block.blockSize;
 
-    char *dataBlock = (char *)calloc(1, block.blockSize);
+    char *dataBlock = (char *) calloc(1, block.blockSize);
 
     for (int i = 0; i < block.dataBlocksCount; ++i) {
         fwrite(dataBlock, block.blockSize, 1, name);
@@ -99,20 +99,20 @@ void writeFileSystem(FILE *name, int size, int count) {
 int main() {
     char name[] = "FS";
     int blockSize = 256;
-    int  blockCount = 100;
+    int blockCount = 100;
     //двепрограммы в одной, создание фс и работа с ней
 
-    FILE * fs = fopen(name, "wb");
+    FILE *fs = fopen(name, "wb");
     writeFileSystem(fs, blockSize, blockCount);
 
     fclose(fs);
     fs = fopen(name, "r+b");
-  //  FILE * fs = fopen(name, "r+b");
+    //  FILE * fs = fopen(name, "r+b");
     FileSystem fileSystem(fs);
 
 
     bool go = true;
-    while(go) {
+    while (go) {
         int cs;
         cout << "1. readFile\n";
         cout << "2. writeFile\n";
@@ -121,11 +121,11 @@ int main() {
         cout << "5. createFile\n";
         cout << "6. Exit\n";
         cin >> cs;
-        switch ( cs ) {
+        switch (cs) {
             case 1: {
                 cout << "Enter file name" << endl;
                 string s1;
-                cin>>s1;
+                cin >> s1;
                 int size1 = s1.length();
                 char arr1[size1 + 1];
                 strcpy(arr1, s1.c_str());
@@ -133,16 +133,16 @@ int main() {
                 break;
             }
             case 2: {
-                cout<< "Enter file name" << endl;
+                cout << "Enter file name" << endl;
                 string name;
-                cin>>name;
+                cin >> name;
                 int sizeName = name.length();
                 char names[sizeName + 1];
                 strcpy(names, name.c_str());
 
                 cout << "Enter line" << endl;
                 string s2;
-                cin>>s2;
+                cin >> s2;
                 int size2 = s2.length();
                 char arr2[size2 + 1];
                 strcpy(arr2, s2.c_str());
@@ -152,7 +152,7 @@ int main() {
             case 3: {
                 cout << "Enter file name" << endl;
                 string s1;
-                cin>>s1;
+                cin >> s1;
                 int size1 = s1.length();
                 char arr1[size1 + 1];
                 strcpy(arr1, s1.c_str());
@@ -166,7 +166,7 @@ int main() {
             case 5: {
                 cout << "Enter file name" << endl;
                 string s1;
-                cin>>s1;
+                cin >> s1;
                 int size1 = s1.length();
                 char name[size1 + 1];
                 strcpy(name, s1.c_str());
