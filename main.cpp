@@ -100,7 +100,7 @@ int main() {
     char name[] = "FS";
     int blockSize = 256;
     int  blockCount = 100;
-    //двепрограммы в одной, создание фс и работа с ней
+    //двепрограммы в одной, создание фс и работа с нейЛ
     FILE * fs = fopen(name, "wb");
     writeFileSystem(fs, blockSize, blockCount);
 
